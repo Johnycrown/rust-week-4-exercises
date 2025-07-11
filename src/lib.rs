@@ -27,12 +27,16 @@ impl<T> Point<T> {
     }
 }
 
-// Custom serialization for Bitcoin transaction
+// // Custom serialization for Bitcoin transaction
+// pub trait BitcoinSerialize {
+//     fn serialize(&self) -> Vec<u8> {
+//         // TODO: Implement serialization to bytes
+//     }
+// }
 pub trait BitcoinSerialize {
-    fn serialize(&self) -> Vec<u8> {
-        // TODO: Implement serialization to bytes
+    fn serialize(&self) -> Vec<u8>;
     }
-}
+
 
 // Legacy Bitcoin transaction
 #[derive(Debug, Clone)]
@@ -45,7 +49,7 @@ pub struct LegacyTransaction {
 
 impl LegacyTransaction {
     pub fn builder() -> LegacyTransactionBuilder {
-        // TODO: Return a new builder for constructing a transaction
+        LegacyTransactionBuilder::default()
     }
 }
 
