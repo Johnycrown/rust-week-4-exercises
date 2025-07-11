@@ -154,14 +154,20 @@ impl TryFrom<&[u8]> for LegacyTransaction {
     type Error = BitcoinError;
 
     fn try_from(data: &[u8]) -> Result<Self, Self::Error> {
-        // TODO: Parse binary data into a LegacyTransaction
-        // Minimum length is 10 bytes (4 version + 4 inputs count + 4 lock_time)
+        if data.len() < 10 {
+            return Err(BitcoinError::InvalidTransaction);
+        }
+        // Placeholder for real parsing logic
+        Err(BitcoinError::InvalidTransaction)
     }
 }
 
 // Custom serialization for transaction
 impl BitcoinSerialize for LegacyTransaction {
     fn serialize(&self) -> Vec<u8> {
-        // TODO: Serialize only version and lock_time (simplified)
+        let mut result = vec![];
+        result.extend(&self.version.to_le_bytes());
+        result.extend(&self.lock_time.to_le_bytes());
+        result
     }
 }
