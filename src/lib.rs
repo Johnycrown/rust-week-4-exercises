@@ -29,8 +29,7 @@ impl<T> Point<T> {
 
 pub trait BitcoinSerialize {
     fn serialize(&self) -> Vec<u8>;
-    }
-
+}
 
 // Legacy Bitcoin transaction
 #[derive(Debug, Clone)]
@@ -65,7 +64,6 @@ impl Default for LegacyTransactionBuilder {
         }
     }
 }
-
 
 impl LegacyTransactionBuilder {
     pub fn new() -> Self {
@@ -131,7 +129,9 @@ pub fn parse_cli_args(args: &[String]) -> Result<CliCommand, BitcoinError> {
     match args[0].as_str() {
         "send" => {
             if args.len() != 3 {
-                return Err(BitcoinError::ParseError("Usage: send <amount> <address>".into()));
+                return Err(BitcoinError::ParseError(
+                    "Usage: send <amount> <address>".into(),
+                ));
             }
             let amount = args[1]
                 .parse::<u64>()
@@ -157,7 +157,6 @@ impl TryFrom<&[u8]> for LegacyTransaction {
         if data.len() < 10 {
             return Err(BitcoinError::InvalidTransaction);
         }
-        // Placeholder for real parsing logic
         Err(BitcoinError::InvalidTransaction)
     }
 }
